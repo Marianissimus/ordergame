@@ -1,5 +1,6 @@
 <template>
   <div class="gameList">
+  <div class="timer" v-if="isGameStarted"> - {{ timer }} seconds - </div> 
   <h1 v-if="userWin">You WIN!</h1>
   <draggable
     v-model="userSortedList"
@@ -12,12 +13,11 @@
     easing="cubic-bezier(1, 0, 0, 1)"
     >
      <span v-for="(element, index) in userSortedList" :key="index"
-     @click="element.fixed = !element.fixed"
      class="gameItem">
      {{ element }}
    </span>
   </draggable>
-    <button @click="test">teeest</button>
+    <button @click="reset">Reset</button>
   </div>
 </template>
 
@@ -32,31 +32,45 @@ export default {
   data () {
     return {
       userSortedList: null, // what the user sorts, needed to compare to default list
-      userWin: false
+      userWin: false,
+      isGameStarted: false,
+      lastList: null, // no same sorting twice in a row,
+      timer: '00:33'
     }
   },
   methods: {
-    test () {
-      console.log(1, this.userSortedList)
+    reset () {
+      this.userWin = false
+      this.isGameStarted = true
+      this.userSortedList = this.getRandomList()
+    },
+    arraysAreEqual (arr1, arr2){
+      // see note #1 in readme regarding this choice:
+      return  JSON.stringify(arr1) === JSON.stringify(arr2)
     },
     checkSorting () {
-      // see note #1 in readme regarding this choice:
-      if (JSON.stringify(this.userSortedList) === JSON.stringify(this.gameList)) {
+      if (this.arraysAreEqual(this.userSortedList, this.gameList)) {
         this.userWin = true
       }
-    }
+    },
+    getRandomList () {
+      // the randomized list, needed to start the game
+      let list =  [...this.gameList].sort(function(a,b){return 0.5 - Math.random()})
+      if (this.arraysAreEqual(list, this.gameList) || this.arraysAreEqual(list, this.lastList)){
+        // prevent unsorted or duplicate starting lists
+        return this.getRandomList()
+      }
+      this.lastList = list
+      return list
+    },
   },
   created () {
-    this.userSortedList = this.randomizedGameList
+    this.reset()
   },
   computed: {
     gameList () {
       // the list from the store, needed to compare to user's list
       return store.state.gameLists.numbers
-    },
-    randomizedGameList () {
-      // the randomized list, needed to start the game
-      return [...this.gameList].sort(function(a,b){return 0.5 - Math.random()})
     },
     dragOptions() {
       return {

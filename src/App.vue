@@ -13,22 +13,22 @@ $gameBckColor: #263240;
 $appBckColor: #a0c8c8;
 $notifyColor: #ffff01;
 $white: #FFF;
-$gameBorderRadius: 10px; // TO DO: ask confirmation from designer 
+$gameBorderRadius: 10px; // TO DO: ask confirmation from designer
 
 *, body, html{
   //small css reset
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
   background-color: $appBckColor;
   display: flex;
-	flex-direction: column;
-	flex-wrap: no-wrap;
-	justify-content: center;
-	align-items: center;
+  flex-direction: column;
+  flex-wrap: no-wrap;
+  justify-content: center;
+  align-items: center;
   overflow: hidden;
   width: 100%;
   height: 100vh;

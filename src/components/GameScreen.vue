@@ -1,13 +1,13 @@
 <template>
   <div class="gameList">
-  <div class="timer" v-if="isGameStarted"> - {{ timer }} seconds - </div> 
+  <div class="timer" v-if="isGameStarted"> - {{ time }} seconds - </div>
   <h1 v-if="userWin">You WIN!</h1>
   <draggable
     v-model="userSortedList"
     v-bind="dragOptions"
     @start="drag=true"
     @end="drag=false"
-    @change="checkSorting"
+    @change="checkWin"
     dragClass="highlightItem"
     animation=150
     easing="cubic-bezier(1, 0, 0, 1)"
@@ -34,8 +34,9 @@ export default {
       userSortedList: null, // what the user sorts, needed to compare to default list
       userWin: false,
       isGameStarted: false,
-      lastList: null, // no same sorting twice in a row,
-      timer: '00:33'
+      lastList: null, // no same random sorting twice in a row,
+      timer: null,
+      time: 0
     }
   },
   methods: {
@@ -43,34 +44,50 @@ export default {
       this.userWin = false
       this.isGameStarted = true
       this.userSortedList = this.getRandomList()
+      this.time = 0
+      clearInterval(this.timer)
+      this.startTimer()
     },
     arraysAreEqual (arr1, arr2){
-      // see note #1 in readme regarding this choice:
-      return  JSON.stringify(arr1) === JSON.stringify(arr2)
+      return  JSON.stringify(arr1) === JSON.stringify(arr2) // see note #1 in readme
     },
-    checkSorting () {
+    checkWin () {
       if (this.arraysAreEqual(this.userSortedList, this.gameList)) {
         this.userWin = true
+        this.saveScore()
+        clearInterval(this.timer)
+        store.commit('setScreen', 'scores')
       }
     },
+    saveScore() {
+      let score = {
+        name: false,
+        value: this.time
+      }
+      store.commit('setScore', score)
+    },
     getRandomList () {
-      // the randomized list, needed to start the game
-      let list =  [...this.gameList].sort(function(a,b){return 0.5 - Math.random()})
+      let list =  [...this.gameList].sort(function(a,b){return 0.5 - Math.random()}) // make a random list
       if (this.arraysAreEqual(list, this.gameList) || this.arraysAreEqual(list, this.lastList)){
-        // prevent unsorted or duplicate starting lists
+        // recursive, to prevent unsorted or duplicated starting lists
         return this.getRandomList()
       }
       this.lastList = list
       return list
     },
+    startTimer() {
+      this.timer = setInterval(() => this.time++ , 1000)
+    }
   },
   created () {
     this.reset()
   },
   computed: {
     gameList () {
-      // the list from the store, needed to compare to user's list
-      return store.state.gameLists.numbers
+      return store.state.levels.letters.list // the default list
+    },
+    screen () {
+      return store.state.screen
     },
     dragOptions() {
       return {

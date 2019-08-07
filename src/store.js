@@ -5,6 +5,15 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    screen: 'scores',
+    levels: {
+    // name?
+    letters: {
+      list: ['A', 'B', 'C', 'D'],
+      scores: []
+    }
+   },
+   lastScore: 0,
    scores: [
       {
         name: 'Alex',
@@ -23,16 +32,19 @@ export default new Vuex.Store({
         value: 23
       }
     ],
-    gameLists: {
-      numbers: [1, 2, 3, 4]
-    }
   },
   mutations: {
-    setScore(scores, item) {
-      state.scores.push(item)
+    setScore(state, score) {
+      state.scores.unshift(score)
+    },
+    updateScores(state, scores) {
+      state.scores = scores
+    },
+    setScreen(state, screen) {
+      state.screen = screen
     }
   },
   actions: {
 
   },
-});
+})

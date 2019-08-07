@@ -46,3 +46,4 @@ for (let el in this.unsortedList) {
 ```
 
 Lodash's 'isEqual' requires several files ('_isEqual', '_baseIsEqual') and does object type check and comparison, etc, too much code for such a simple check, even with tree shaking.
+I'll probably test stringify against array.join

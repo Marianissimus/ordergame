@@ -1,27 +1,26 @@
 <template>
   <div class="home">
-    <h1 class="logo" @click="startGame">Order<span class="asterix">*</span></h1>
-    <h3 class="subtitle">Screen info here</h3>
+    <div class="title">
+      <h1 class="logo" @click="startGame">order<span class="asterisk">*</span></h1>
+      <h4 class="subtitle">{{ subtitle }}</h4>
+    </div>
     <ScoreScreen v-if="screen === 'scores'"/>
     <GameScreen v-else/>
-    <h5 class="instructions">Some instructions here</h5>
+    <h5 class="instructions">* {{ message }}</h5>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
 import store from '@/store'
-import ScoreScreen from '@/components/ScoreScreen.vue';
-import GameScreen from '@/components/GameScreen.vue';
+import ScoreScreen from '@/components/ScoreScreen.vue'
+import GameScreen from '@/components/GameScreen.vue'
+import { mixins } from '@/mixins.js'
 
 export default{
   name: 'home',
+  mixins: [mixins],
   components: {
     ScoreScreen, GameScreen
-  },
-  data () {
-    return {
-    }
   },
   methods: {
     startGame () {
@@ -29,22 +28,29 @@ export default{
         store.commit('setScreen', 'game')
       }
     }
-  },
-  computed: {
-    screen () {
-      return store.state.screen
-    }
   }
 }
 
 </script>
 
-<style scoped>
-.asterix {
-  /* TO DO: change this by importing global scss variables in vue.config.js */
-  color: yellow;
+<style>
+.home {
+  font-family: 'Roboto', sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
-.instructions {
+.logo {
+  font-weight: 400;
+  font-size: 3em;
+  letter-spacing: .1em;
+}
+.subtitle {
+  font-weight: 300;
+  letter-spacing: .1em;
+  margin: 1em 0;
+}
+.asterisk, .instructions {
   color: yellow;
 }
 </style>

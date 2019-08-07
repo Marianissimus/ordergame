@@ -14,6 +14,9 @@ export default new Vuex.Store({
     }
    },
    lastScore: 0,
+   scoreMode: 'start',
+   message: '',
+   subtitle: '',
    scores: [
       {
         name: 'Alex',
@@ -37,11 +40,20 @@ export default new Vuex.Store({
     setScore(state, score) {
       state.scores.unshift(score)
     },
+    setScoreMode(state, mode){
+      state.scoreMode = mode
+    },
     updateScores(state, scores) {
       state.scores = scores
     },
     setScreen(state, screen) {
       state.screen = screen
+    },
+    setMessage(state, message){
+      state.message = message
+    },
+    setSubtitle(state, subtitle){
+      state.subtitle = subtitle
     }
   },
   actions: {

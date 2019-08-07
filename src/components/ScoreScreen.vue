@@ -2,45 +2,51 @@
   <ul>
     <li v-for="(score, index) in scores" :key="index">
       <span v-if="score.name">{{ score.value }} - {{ score.name }}</span>
-      <span v-else>
+      <span v-if="!score.name">
         {{ score.value }} -
-        <input v-if="!saved" type="text" v-model="saveName" @keyup.enter="save(score.value)" />
-        <span v-if="saved"> {{ saveName }}</span>
+        <input type="text" v-model="saveName" @keyup.enter="save(index)" />
       </span>
-<!--  this sucks; i'll rewrite it
-      <span v-if="!score.name">{{ score.value }} - </span>
-      <input type="text" v-if="!score.name && !saved" @keyup.enter="save(score.value)" v-model="nameToSave"></input>
-      <span v-if="!score.name && saved">{{ nameToSave }}</span> -->
     </li>
   </ul>
 </template>
 
 <script>
-import store from '@/store';
+import store from '@/store'
+import { mixins } from '@/mixins.js'
 
 export default {
+  mixins: [mixins],
   data () {
     return {
-      saveName: '',
-      saved: false
+      saved: false,
+      saveName: ''
     }
   },
   methods: {
-    save (scoreValue) {
-      // console.log(this.saveName, scoreValue)
+    save (index) {
+      if (!this.saveName.length) {
+       store.commit('setMessage', 'no empty names, please!')
+       return
+      }
+      store.commit('setMessage', 'score saved')
+      this.scores[index].name = this.saveName
       this.saved = true
       store.commit('updateScores', this.scores)
-      // this.saved = true
-      // store.commit('setScore', score)
     }
   },
   computed: {
+    localMessage () {
+      return this.scoreMode === 'start' ? 'click anywhere to START' : 'enter highscore nickname'
+    },
+    localSubtitle () {
+      return this.scoreMode === 'start' ? 'game' : 'highscores'
+    },
     scores () {
       // if sorting done in backend, remove .sort
-      return store.state.scores.sort((a,b) => b.value - a.value)
+      return store.state.scores.sort((a,b) => a.value - b.value)
     },
-    screen () {
-      return store.state.screen
+    scoreMode () {
+      return store.state.scoreMode
     }
   }
 }

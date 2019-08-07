@@ -1,10 +1,10 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/settings">Settings</router-link>
+      <router-link to="/">H</router-link> |
+      <router-link to="/settings">S</router-link>
     </div>
-    <router-view/>
+    <router-view class="content"/>
   </div>
 </template>
 
@@ -20,6 +20,10 @@ $gameBorderRadius: 10px; // TO DO: ask confirmation from designer
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+.content{
+  height: 90%;
 }
 
 body {

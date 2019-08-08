@@ -4,7 +4,7 @@
       <span v-if="score.name">{{ score.value }} - {{ score.name }}</span>
       <span v-if="!score.name"  @click.stop="stopTheEvent">
         {{ score.value }} -
-        <input type="text" ref="save" v-model="saveName" @keyup.enter="save(index)" autofocus />
+        <input v-focus type="text" ref="save" v-model="saveName" @keyup.enter="save(index)" />
       </span>
     </li>
   </ul>
@@ -36,6 +36,13 @@ export default {
     },
     stopTheEvent: (event) => {
       event.stopPropagation()
+    }
+  },
+  directives: {
+    focus: {
+      inserted: function (el) {
+        el.focus()
+      }
     }
   },
   computed: {

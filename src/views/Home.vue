@@ -1,11 +1,17 @@
 <template>
   <div class="home" @click="startGame">
+    <div id="nav">
+      <a @click="gotoLevels" style="cursor: pointer">Levels</a>
+    </div>
     <div class="title">
       <h1 class="logo">order<span class="asterisk">*</span></h1>
       <h4 class="subtitle">{{ subtitle }}</h4>
     </div>
+    <!-- not the best pattern, but i don't want to use routes for this-->
     <ScoreScreen v-if="screen === 'scores'"/>
-    <GameScreen v-else/>
+    <GameScreen v-if="screen === 'game'"/>
+    <LevelsScreen v-if="screen === 'levels'" />
+
     <h5 class="instructions">* {{ message }}</h5>
   </div>
 </template>
@@ -14,19 +20,23 @@
 import store from '@/store'
 import ScoreScreen from '@/components/ScoreScreen.vue'
 import GameScreen from '@/components/GameScreen.vue'
+import LevelsScreen from '@/components/LevelsScreen.vue'
 import { mixins } from '@/mixins.js'
 
 export default{
   name: 'home',
   mixins: [mixins],
   components: {
-    ScoreScreen, GameScreen
+    ScoreScreen, GameScreen, LevelsScreen
   },
   methods: {
     startGame () {
       if (this.screen === 'scores' && this.scoremode === 'start') {
         store.commit('setScreen', 'game')
       }
+    },
+    gotoLevels () {
+      store.commit('setScreen', 'levels')
     }
   }
 }

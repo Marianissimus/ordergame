@@ -1,6 +1,6 @@
 import store from '@/store'
 
-export const mixins = { 
+export const mixins = {
   created () {
     store.commit('setMessage', this.localMessage)
     store.commit('setSubtitle', this.localSubtitle)
@@ -17,6 +17,12 @@ export const mixins = {
 		},
 		scoremode () {
 			return store.state.scoremode
-		}
+		},
+    level () {
+      return store.state.level
+    },
+    alllevels () {
+      return Object.keys(store.state.levels)
+    }
 	}
 }

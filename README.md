@@ -49,6 +49,10 @@ Lodash's 'isEqual' requires several files ('_isEqual', '_baseIsEqual') and does 
 
 I'll probably test stringify against array.join
 
+#Offline functionality
+Localstorage will do, as I don't need cookies (anyway, Vue doesn't support older browsers, IE previous to 9, etc)
+Could go for PWA / service workers, but I feel that's overkill.
+
 #TO DO:
 Add levels / level logic
 Offline mode: save, request when reconnected

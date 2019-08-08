@@ -1,0 +1,48 @@
+    levels: [
+      {
+        level: 'letters',
+        list: ['A', 'B', 'C', 'D'],
+        scores: [
+            {
+              name: 'sdcsd',
+              value: 1
+            },
+            {
+              name: 'Miki',
+              value: 34
+            }
+          ],
+      },
+      {
+        level: 'numbers',
+        list: [0, 1, 2, 3],
+        scores: [
+            {
+              name: 'sdcsd',
+              value: 2
+            },
+            {
+              name: 'Miki',
+              value: 34
+            },
+            {
+              name: 'Mary',
+              value: 18
+            }
+        ]
+      },
+      {
+        level: 'ciorba de perisoare',
+        list: [ 'apa', 'oase/carne', 'spumam', 'radacinoase', 'rosii', 'ardei gras', 'bors', 'dovlecel', 'perisoare', 'stingem focul', 'leustean' ],
+        scores: [
+            {
+              name: 'Jamilla',
+              value: 30
+            },
+            {
+              name: 'Cezar',
+              value: 25
+            }
+          ],
+      },
+    ],

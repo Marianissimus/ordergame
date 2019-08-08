@@ -14,6 +14,9 @@ export const mixins = {
 		},
 		screen () {
 			return store.state.screen
+		},
+		scoremode () {
+			return store.state.scoremode
 		}
 	}
 }

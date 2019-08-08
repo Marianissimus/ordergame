@@ -2,9 +2,9 @@
   <ul>
     <li v-for="(score, index) in scores" :key="index">
       <span v-if="score.name">{{ score.value }} - {{ score.name }}</span>
-      <span v-if="!score.name">
+      <span v-if="!score.name"  @click.stop="stopTheEvent">
         {{ score.value }} -
-        <input type="text" v-model="saveName" @keyup.enter="save(index)" />
+        <input type="text" ref="save" v-model="saveName" @keyup.enter="save(index)" autofocus />
       </span>
     </li>
   </ul>
@@ -31,22 +31,23 @@ export default {
       store.commit('setMessage', 'score saved')
       this.scores[index].name = this.saveName
       this.saved = true
+      store.commit('setScoreMode', 'start')
       store.commit('updateScores', this.scores)
+    },
+    stopTheEvent: (event) => {
+      event.stopPropagation()
     }
   },
   computed: {
     localMessage () {
-      return this.scoreMode === 'start' ? 'click anywhere to START' : 'enter highscore nickname'
+      return this.scoremode === 'start' ? 'click anywhere to START' : 'enter highscore nickname'
     },
     localSubtitle () {
-      return this.scoreMode === 'start' ? 'game' : 'highscores'
+      return this.scoremode === 'start' ? 'game' : 'highscores'
     },
     scores () {
       // if sorting done in backend, remove .sort
-      return store.state.scores.sort((a,b) => a.value - b.value)
-    },
-    scoreMode () {
-      return store.state.scoreMode
+      return store.state.scores.sort((a,b) => a.value - b.value).slice(0, 10) 
     }
   }
 }
@@ -55,5 +56,12 @@ export default {
 <style scoped>
 li {
   list-style: none;
+}
+input {
+  width: 6em;
+  background-color: #263240;
+  color: white;
+  border: none;
+  padding: 5px
 }
 </style>

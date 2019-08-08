@@ -47,6 +47,7 @@ body {
   border-radius: $gameBorderRadius;
   width: 80vw;
   height: 80vh;
+  min-height: 400px;
   color: white;
   position: relative;
 }

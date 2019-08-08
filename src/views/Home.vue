@@ -1,7 +1,7 @@
 <template>
-  <div class="home">
+  <div class="home" @click="startGame">
     <div class="title">
-      <h1 class="logo" @click="startGame">order<span class="asterisk">*</span></h1>
+      <h1 class="logo">order<span class="asterisk">*</span></h1>
       <h4 class="subtitle">{{ subtitle }}</h4>
     </div>
     <ScoreScreen v-if="screen === 'scores'"/>
@@ -24,7 +24,7 @@ export default{
   },
   methods: {
     startGame () {
-      if (this.screen === 'scores') {
+      if (this.screen === 'scores' && this.scoremode === 'start') {
         store.commit('setScreen', 'game')
       }
     }

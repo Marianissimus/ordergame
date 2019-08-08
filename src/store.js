@@ -14,7 +14,7 @@ export default new Vuex.Store({
     }
    },
    lastScore: 0,
-   scoreMode: 'start',
+   scoremode: 'start',
    message: '',
    subtitle: '',
    scores: [
@@ -33,6 +33,34 @@ export default new Vuex.Store({
       {
         name: 'John',
         value: 23
+      },
+      {
+        name: 'John',
+        value: 24
+      },
+      {
+        name: 'Sohn',
+        value: 25
+      },
+      {
+        name: 'Ror',
+        value: 33
+      },
+      {
+        name: 'AAA',
+        value: 3
+      },
+      {
+        name: 'sss',
+        value: 22
+      },
+      {
+        name: 'sdhn',
+        value: 23
+      },
+      {
+        name: 'Jhn',
+        value: 43
       }
     ],
   },
@@ -41,7 +69,7 @@ export default new Vuex.Store({
       state.scores.unshift(score)
     },
     setScoreMode(state, mode){
-      state.scoreMode = mode
+      state.scoremode = mode
     },
     updateScores(state, scores) {
       state.scores = scores

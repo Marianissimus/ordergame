@@ -59,12 +59,12 @@ export default {
         this.userWin = true
         this.saveScore()
         clearInterval(this.timer)
-        store.commit('setScoreMode', 'save')
         store.commit('setScreen', 'scores')
         store.commit('setSubtitle', ` - 0 seconds - `)
       }
     },
     saveScore() {
+      store.commit('setScoreMode', 'save')
       let score = {
         name: null,
         value: this.time

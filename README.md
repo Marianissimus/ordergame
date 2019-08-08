@@ -46,4 +46,14 @@ for (let el in this.unsortedList) {
 ```
 
 Lodash's 'isEqual' requires several files ('_isEqual', '_baseIsEqual') and does object type check and comparison, etc, too much code for such a simple check, even with tree shaking.
+
 I'll probably test stringify against array.join
+
+#TO DO:
+Add levels / level logic
+Offline mode: save, request when reconnected
+// done; Limit offline highscores to 10
+Time in mm:ss // see what's incoming first
+Autofocus on input / score name to save; works sometimes, not always
+// done Click ANYWHERE to start
+some more styling

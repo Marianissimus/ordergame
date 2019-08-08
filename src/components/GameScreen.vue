@@ -1,23 +1,25 @@
 <template>
   <div class="gameList">
-  <!-- <div class="timer" v-if="isGameStarted"> - {{ time }} seconds - </div> -->
-  <h1 v-if="userWin">You WIN!</h1>
-  <draggable
-    v-model="userSortedList"
-    v-bind="dragOptions"
-    @start="drag=true"
-    @end="drag=false"
-    @change="checkWin"
-    dragClass="highlightItem"
-    animation=150
-    easing="cubic-bezier(1, 0, 0, 1)"
-    >
-     <span v-for="(element, index) in userSortedList" :key="index"
-     class="gameItem">
-     {{ element }}
-   </span>
-  </draggable>
-    <button @click="reset">Reset</button>
+    <!-- <div class="timer" v-if="isGameStarted"> - {{ time }} seconds - </div> -->
+    <h1 v-if="userWin">You WIN!</h1>
+    <draggable
+      v-model="userSortedList"
+      v-bind="dragOptions"
+      @start="drag=true"
+      @end="drag=false"
+      @change="checkWin"
+      dragClass="highlightItem"
+      animation=150
+      easing="cubic-bezier(1, 0, 0, 1)"
+      >
+      <span v-for="(element, index) in userSortedList" :key="index"
+      class="gameItem">
+      {{ element }}
+    </span>
+    </draggable>
+    <div class="btnContainer">
+      <button @click="reset">Reset</button>
+    </div>
   </div>
 </template>
 
@@ -93,7 +95,7 @@ export default {
   },
   computed: {
     gameList () {
-      return store.state.levels.letters.list // the default list
+      return store.state.levels.find(el => el.level === this.level).list // the default list
     },
     dragOptions() {
       return {
@@ -113,13 +115,14 @@ export default {
 }
 .gameItem {
   display: inline-block;
-  width: 50px;
+  min-width: 50px;
   height: 50px;
   line-height: 50px;
   border: 2px solid white;
   margin: 10px;
   border-radius: 10px;
   cursor: move;
+  padding: 0 5px;
 }
 .highlightItem {
   border-color: yellow;
@@ -127,5 +130,15 @@ export default {
 .ghost {
   opacity: 0.5;
   background: #c8ebfb;
+}
+.btnContainer {
+  margin-top: 2em;
+}
+button {
+  padding: 1em;
+  background-color: #263240;
+  border: 1px solid white;
+  border-radius: 0;
+  color: white;
 }
 </style>

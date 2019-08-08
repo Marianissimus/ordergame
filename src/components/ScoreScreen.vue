@@ -28,11 +28,10 @@ export default {
        store.commit('setMessage', 'no empty names, please!')
        return
       }
-      store.commit('setMessage', 'score saved')
+      store.commit('setMessage', 'Score saved. Change level or click anywhere to play again')
       this.scores[index].name = this.saveName
       this.saved = true
       store.commit('setScoreMode', 'start')
-      store.commit('updateScores', this.scores)
     },
     stopTheEvent: (event) => {
       event.stopPropagation()
@@ -54,7 +53,7 @@ export default {
     },
     scores () {
       // if sorting done in backend, remove .sort
-      return store.state.scores.sort((a,b) => a.value - b.value).slice(0, 10) 
+      return store.state.levels.find(el => el.level === this.level).scores.sort((a,b) => a.value - b.value).slice(0, 10) // also remove scores not in highscores
     }
   }
 }
@@ -65,10 +64,10 @@ li {
   list-style: none;
 }
 input {
-  width: 6em;
+  width: 8em;
   background-color: #263240;
   color: white;
   border: none;
-  padding: 5px
+  padding: 1em;
 }
 </style>

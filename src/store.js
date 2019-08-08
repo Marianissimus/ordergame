@@ -6,136 +6,66 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     screen: 'scores',
-    levels: {
-    // name?
-    letters: {
-      list: ['A', 'B', 'C', 'D'],
-      scores: [
-        {
-          name: 'sdcsd',
-          value: 1
-        },
-        {
-          name: 'Miki',
-          value: 34
-        },
-        {
-          name: 'Mary',
-          value: 18
-        },
-        {
-          name: 'John',
-          value: 23
-        },
-        {
-          name: 'John',
-          value: 24
-        },
-        {
-          name: 'Sohn',
-          value: 25
-        },
-        {
-          name: 'Ror',
-          value: 33
-        },
-        {
-          name: 'AAA',
-          value: 3
-        },
-        {
-          name: 'sss',
-          value: 22
-        },
-        {
-          name: 'sdhn',
-          value: 23
-        },
-        {
-          name: 'Jhn',
-          value: 43
-        }
-      ],
-    numbers: {
-      list: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
-       scores: [
-          {
-            name: 'sdcsd',
-            value: 1
-          },
-          {
-            name: 'Miki',
-            value: 34
-          },
-          {
-            name: 'Mary',
-            value: 18
-          }
+    levels: [
+      {
+        level: 'letters',
+        list: ['A', 'B', 'C', 'D'],
+        scores: [
+            {
+              name: 'sdcsd',
+              value: 1
+            },
+            {
+              name: 'Miki',
+              value: 34
+            }
+          ],
+      },
+      {
+        level: 'numbers',
+        list: [0, 1, 2, 3],
+        scores: [
+            {
+              name: 'sdcsd',
+              value: 2
+            },
+            {
+              name: 'Miki',
+              value: 34
+            },
+            {
+              name: 'Mary',
+              value: 18
+            }
         ]
-      }
-    }
-   },
+      },
+      {
+        level: 'ciorba de perisoare',
+        list: [ 'apa', 'oase/carne', 'spumam', 'radacinoase', 'rosii', 'ardei gras', 'bors', 'dovlecel', 'perisoare', 'stingem focul', 'leustean' ],
+        scores: [
+            {
+              name: 'Jamilla',
+              value: 30
+            },
+            {
+              name: 'Cezar',
+              value: 25
+            }
+          ],
+      },
+    ],
    lastScore: 0,
    scoremode: 'start',
    message: '',
    subtitle: '',
    level: 'numbers',
-   scores: [
-      {
-        name: 'Alex',
-        value: 20
-      },
-      {
-        name: 'Miki',
-        value: 34
-      },
-      {
-        name: 'Mary',
-        value: 18
-      },
-      {
-        name: 'John',
-        value: 23
-      },
-      {
-        name: 'John',
-        value: 24
-      },
-      {
-        name: 'Sohn',
-        value: 25
-      },
-      {
-        name: 'Ror',
-        value: 33
-      },
-      {
-        name: 'AAA',
-        value: 3
-      },
-      {
-        name: 'sss',
-        value: 22
-      },
-      {
-        name: 'sdhn',
-        value: 23
-      },
-      {
-        name: 'Jhn',
-        value: 43
-      }
-    ],
   },
   mutations: {
-    setScore(state, score) {
-      state.scores.unshift(score)
+    setScore: function (state, score) {
+      state.levels.find(el => el.level === state.level).scores.push(score)
     },
     setScoreMode(state, mode){
       state.scoremode = mode
-    },
-    updateScores(state, scores) {
-      state.scores = scores
     },
     setScreen(state, screen) {
       state.screen = screen

@@ -3,7 +3,7 @@ import store from '@/store'
 export const mixins = {
   created () {
     store.commit('setMessage', this.localMessage)
-    store.commit('setSubtitle', this.localSubtitle)
+		store.commit('setSubtitle', this.localSubtitle)
 	},
 	computed: {
 		message () {
@@ -20,9 +20,9 @@ export const mixins = {
 		},
     level () {
       return store.state.level
-    },
+		},
     alllevels () {
-      return Object.keys(store.state.levels)
+      return store.state.levels.map(el => el.level)
     }
 	}
 }

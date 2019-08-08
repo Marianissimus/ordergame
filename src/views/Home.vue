@@ -1,13 +1,14 @@
 <template>
   <div class="home" @click="startGame">
     <div id="nav">
-      <a @click="gotoLevels" style="cursor: pointer">Levels</a>
+      <a @click="gotoLevels" v-if="screen === 'scores' && scoremode ==='start'" style="cursor: pointer">Levels</a>
+      <a @click="goToScores" v-if="screen === 'levels'" style="cursor: pointer">Back</a>
     </div>
     <div class="title">
       <h1 class="logo">order<span class="asterisk">*</span></h1>
       <h4 class="subtitle">{{ subtitle }}</h4>
     </div>
-    <!-- not the best pattern, but i don't want to use routes for this-->
+    <!-- not the best pattern, but i shouldn't use routes just for this-->
     <ScoreScreen v-if="screen === 'scores'"/>
     <GameScreen v-if="screen === 'game'"/>
     <LevelsScreen v-if="screen === 'levels'" />
@@ -37,6 +38,9 @@ export default{
     },
     gotoLevels () {
       store.commit('setScreen', 'levels')
+    },
+    goToScores () {
+       store.commit('setScreen', 'scores')
     }
   }
 }
@@ -62,5 +66,8 @@ export default{
 }
 .asterisk, .instructions {
   color: yellow;
+}
+.instructions {
+  font-weight: 300;
 }
 </style>

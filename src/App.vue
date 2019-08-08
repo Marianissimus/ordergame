@@ -53,10 +53,13 @@ body {
 }
 #nav {
   position: absolute;
-  top: .5em;
-  right: .5em;
+  top: 1.5em;
+  right: 1.5em;
   a {
-    font-weight: bold;
+    border: 1px solid white;
+    border-radius: 5px;
+    padding: .5em;
+    font-weight: 400;
     color: $white;
     text-decoration: none;
     &.router-link-exact-active {

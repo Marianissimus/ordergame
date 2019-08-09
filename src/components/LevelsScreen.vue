@@ -2,8 +2,7 @@
   <div>
     <ul>
       <li v-for="(item, index) in alllevels" :key="index">
-        <input type="radio" v-model="selectedLevel" :value=item @change="selectLevel"> 
-        {{ item }}
+        <input type="radio" v-model="selectedLevel" :value=item @change="selectLevel">&nbsp;&nbsp;{{ item }}
       </li>
     </ul>
   </div>

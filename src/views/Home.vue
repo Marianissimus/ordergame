@@ -53,6 +53,13 @@ export default{
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  background-color: #263240;
+  border-radius: 10px;
+  width: 80vw;
+  height: 100%;
+  min-height: 400px;
+  color: white;
+  position: relative;
 }
 .logo {
   font-weight: 400;
@@ -62,12 +69,13 @@ export default{
 .subtitle {
   font-weight: 300;
   letter-spacing: .1em;
-  margin: 1em 0;
+  margin: 1em 0 0 0;
 }
 .asterisk, .instructions {
   color: yellow;
 }
 .instructions {
   font-weight: 300;
+  margin-bottom: 1em;
 }
 </style>

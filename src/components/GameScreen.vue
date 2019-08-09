@@ -1,7 +1,7 @@
 <template>
   <div class="gameList">
     <!-- <div class="timer" v-if="isGameStarted"> - {{ time }} seconds - </div> -->
-    <h1 v-if="userWin">You WIN!</h1>
+<!--     <h1 v-if="userWin">You WIN!</h1> -->
     <draggable
       v-model="userSortedList"
       v-bind="dragOptions"
@@ -18,7 +18,8 @@
     </span>
     </draggable>
     <div class="btnContainer">
-      <button @click="reset">Reset</button>
+      <button @click="reset">Restart</button>
+      <button @click="goToLevels" style="margin-left: 1em">Levels</button>
     </div>
   </div>
 </template>
@@ -52,6 +53,12 @@ export default {
       this.time = 0
       clearInterval(this.timer)
       this.startTimer()
+    },
+    goToLevels () {
+      this.isGameStarted = false
+      this.time = 0
+      clearInterval(this.timer)
+      store.commit('setScreen', 'levels')
     },
     arraysAreEqual (arr1, arr2){
       return  JSON.stringify(arr1) === JSON.stringify(arr2) // see note #1 in readme
@@ -111,7 +118,7 @@ export default {
 
 <style scoped>
 .gameList {
-  padding: 40px;
+  padding: 1em;
 }
 .gameItem {
   display: inline-block;
@@ -119,7 +126,7 @@ export default {
   height: 50px;
   line-height: 50px;
   border: 2px solid white;
-  margin: 10px;
+  margin: 5px;
   border-radius: 10px;
   cursor: move;
   padding: 0 5px;
@@ -132,13 +139,15 @@ export default {
   background: #c8ebfb;
 }
 .btnContainer {
-  margin-top: 2em;
+  margin-top: 1em;
 }
 button {
   padding: 1em;
   background-color: #263240;
-  border: 1px solid white;
-  border-radius: 0;
+  border: 1px solid yellow;
+  border-radius: 10px;
   color: white;
+  cursor: pointer;
 }
+button:focus{outline:none !important;}
 </style>

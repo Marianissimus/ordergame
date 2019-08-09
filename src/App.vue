@@ -43,13 +43,6 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  background-color: $gameBckColor;
-  border-radius: $gameBorderRadius;
-  width: 80vw;
-  height: 80vh;
-  min-height: 400px;
-  color: white;
-  position: relative;
 }
 #nav {
   position: absolute;

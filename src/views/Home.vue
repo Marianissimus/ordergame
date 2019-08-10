@@ -1,7 +1,8 @@
 <template>
   <div class="home" @click="startGame">
     <div id="nav">
-      <a @click="gotoLevels" v-if="screen === 'scores' && scoremode ==='start'" style="cursor: pointer">Levels</a>
+      <a @click="gotoLevels" v-if="screen === 'scores' && scoremode ==='start'"
+      style="cursor: pointer">Levels</a>
       <a @click="goToScores" v-if="screen === 'levels'" style="cursor: pointer">Back</a>
     </div>
     <div class="title">
@@ -18,32 +19,32 @@
 </template>
 
 <script>
-import store from '@/store'
-import ScoreScreen from '@/components/ScoreScreen.vue'
-import GameScreen from '@/components/GameScreen.vue'
-import LevelsScreen from '@/components/LevelsScreen.vue'
-import { mixins } from '@/mixins.js'
+import store from '@/store';
+import ScoreScreen from '@/components/ScoreScreen.vue';
+import GameScreen from '@/components/GameScreen.vue';
+import LevelsScreen from '@/components/LevelsScreen.vue';
+import { mixins } from '@/mixins';
 
-export default{
+export default {
   name: 'home',
   mixins: [mixins],
   components: {
-    ScoreScreen, GameScreen, LevelsScreen
+    ScoreScreen, GameScreen, LevelsScreen,
   },
   methods: {
-    startGame () {
+    startGame() {
       if (this.screen === 'scores' && this.scoremode === 'start') {
-        store.commit('setScreen', 'game')
+        store.commit('setScreen', 'game');
       }
     },
-    gotoLevels () {
-      store.commit('setScreen', 'levels')
+    gotoLevels() {
+      store.commit('setScreen', 'levels');
     },
-    goToScores () {
-       store.commit('setScreen', 'scores')
-    }
-  }
-}
+    goToScores() {
+      store.commit('setScreen', 'scores');
+    },
+  },
+};
 
 </script>
 

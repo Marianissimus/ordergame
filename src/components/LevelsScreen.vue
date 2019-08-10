@@ -2,38 +2,39 @@
   <div>
     <ul>
       <li v-for="(item, index) in alllevels" :key="index">
-        <input type="radio" v-model="selectedLevel" :value=item @change="selectLevel">&nbsp;&nbsp;{{ item }}
+        <input type="radio" v-model="selectedLevel"
+        :value=item @change="selectLevel">&nbsp;&nbsp;{{ item }}
       </li>
     </ul>
   </div>
 </template>
 
 <script>
-import store from '@/store'
-import { mixins } from '@/mixins.js'
+import store from '@/store';
+import { mixins } from '@/mixins';
 
-export default{
+export default {
   mixins: [mixins],
   name: 'levels',
-  data () {
+  data() {
     return {
       localMessage: 'choose level to play',
       localSubtitle: 'level selector',
-      selectedLevel: ''
-    }
+      selectedLevel: '',
+    };
   },
   methods: {
     selectLevel() {
-      store.commit('setLevel', this.selectedLevel)
+      store.commit('setLevel', this.selectedLevel);
     },
-    goToScores () {
-       store.commit('setScreen', 'scores')
-    }
+    goToScores() {
+      store.commit('setScreen', 'scores');
+    },
   },
-  created () {
-    this.selectedLevel = this.level
-  }
-}
+  created() {
+    this.selectedLevel = this.level;
+  },
+};
 
 </script>
 

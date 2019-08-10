@@ -1,12 +1,39 @@
 <template>
   <div id="app">
-<!--     <div id="nav">
-      <router-link to="/">H</router-link> |
-      <router-link to="/settings">S</router-link>
-    </div> -->
     <router-view class="content"/>
   </div>
 </template>
+
+<script>
+import store from '@/store';
+
+export default {
+  data() {
+    return {
+    };
+  },
+  created() {
+    store.commit('setFirstScreen', true);
+  },
+  mounted() {
+    this.getApiScores();
+  },
+  methods: {
+    getApiScores() {
+      fetch('https://development.m75.ro/test_mts/public/highscore/10')
+        .then(response => response.json())
+        .catch(error => console.error('Error:', error))
+        .then((response) => {
+          const res = response.result;
+          // clean up: please filter the results on the server, and then uncomment the filter below:
+          // .filter(el => el.name !== 'undefined').filter(el => parseInt(el.value) > 1)
+          store.commit('setNumbersScore', res);
+        });
+    },
+  },
+};
+</script>
+
 
 <style lang="scss">
 $gameBckColor: #263240;

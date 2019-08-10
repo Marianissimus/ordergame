@@ -113,6 +113,14 @@ export default new Vuex.Store({
     setLevel(state, level) {
       state.level = level;
     },
+    initialiseStore(state) {
+      // Check if the ID exists
+      if (localStorage.getItem('ordergame')) {
+        this.replaceState(
+          Object.assign(state, JSON.parse(localStorage.getItem('ordergame'))),
+        );
+      }
+    },
   },
   actions: {
 

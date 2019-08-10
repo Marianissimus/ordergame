@@ -13,7 +13,6 @@
     <ScoreScreen v-if="screen === 'scores'"/>
     <GameScreen v-if="screen === 'game'"/>
     <LevelsScreen v-if="screen === 'levels'" />
-
     <h5 class="instructions">* {{ message }}</h5>
   </div>
 </template>

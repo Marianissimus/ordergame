@@ -4,14 +4,14 @@
       <span v-if="score.name">{{ score.value }} - {{ score.name }}</span>
       <span v-if="!score.name"  @click.stop="stopTheEvent">
         {{ score.value }} -
-        <input v-focus 
-        onblur="this.focus()" autofocus 
-        type="text" ref="save" v-model="saveName" 
-        @keyup.enter="save(index, score.value)" 
+        <input v-focus
+        onblur="this.focus()" autofocus
+        type="text" ref="save" v-model="saveName"
+        @keyup.enter="save(index, score.value)"
         />
       </span>
     </li>
-    <div v-if="level==='numbers' && !firstScreen && !cheatMode" 
+    <div v-if="level==='numbers' && !firstScreen && !cheatMode"
       style="margin-top: 1em; padding: 0"
       @click.stop="stopTheEvent">
       <button @click="cheat">Cheat! :)</button>
@@ -30,12 +30,20 @@ export default {
     return {
       saved: false,
       saveName: '',
-      cheatMode: false
+      cheatMode: false,
     };
   },
   mounted() {
+    // subscribe store levels to localstorage
+    store.subscribe((mutation, state) => {
+      const toStore = {
+        levels: state.levels,
+      };
+      localStorage.setItem('ordergame', JSON.stringify(toStore));
+    });
+
     if (this.scores.find(el => el.name === null)) {
-      console.log('found');
+      // console.log('found');
     } else {
       if (store.state.firstScreen === true) {
         store.commit('setMessage', 'click anywhere to play');
@@ -70,12 +78,12 @@ export default {
       this.saved = true;
       store.commit('setScoreMode', 'start');
     },
-    cheat () {
+    cheat() {
       store.commit('setScoreMode', 'save');
       this.cheatMode = true;
       store.commit('setScore', {
         name: null,
-        value: parseInt(this.scores[0].value) - 1
+        value: parseInt(this.scores[0].value) - 1,
       });
       this.save();
     },

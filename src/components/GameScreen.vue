@@ -41,7 +41,7 @@ export default {
       timer: null,
       time: 0,
       localMessage: 'arrange the items as fast as you can', // correct topic, please
-      isBlocked: false
+      isBlocked: false,
     };
   },
   methods: {

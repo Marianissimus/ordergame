@@ -3,7 +3,7 @@
     <ul>
       <li v-for="(item, index) in alllevels" :key="index">
         <input type="radio" v-model="selectedLevel"
-        :value=item @change="selectLevel">&nbsp;&nbsp;{{ item }}
+        :value=item @change="selectLevel" style="margin-right: 10px;">{{ item }}
       </li>
     </ul>
   </div>
@@ -40,7 +40,7 @@ export default {
 
 <style lang="scss" scoped>
 ul {
-  width: 200px;
+  width: 290px;
   display: block;
   text-align: left;
   margin: 0 auto;

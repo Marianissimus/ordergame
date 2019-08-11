@@ -8,53 +8,35 @@ export default new Vuex.Store({
     screen: 'scores',
     levels: [
       {
-        level: 'letters',
-        list: ['A', 'B', 'C', 'D'],
-        scores: [
-          {
-            name: 'sdcsd',
-            value: 1,
-          },
-          {
-            name: 'Miki',
-            value: 34,
-          },
-        ],
-      },
-      {
         level: 'numbers',
-        list: [0, 1, 2, 3],
+        list: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
         scores: [
           {
-            name: 'sdcsd',
-            value: 2,
+            name: 'Pitagora',
+            value: 20,
           },
           {
-            name: 'Miki',
+            name: 'Thales',
             value: 34,
           },
-          {
-            name: 'Mary',
-            value: 18,
-          },
         ],
       },
       {
-        level: 'supa de pui',
-        list: ['apa', 'pui', 'spumam', 'morcov + telina + ceapa', 'taitei / galuste', 'stingem focul', 'patrunjel'],
+        level: 'Windows',
+        list: [3, 95, 98, 'ME', 'XP', 'Vista', 7, 8, 10],
         scores: [
           {
-            name: 'jamie oliver',
-            value: 10,
+            name: 'Bill',
+            value: 22,
           },
           {
-            name: 'Gordon',
-            value: 12,
+            name: 'Gates',
+            value: 29,
           },
         ],
       },
       {
-        level: 'a rom-com formula',
+        level: 'A romantic comedy formula',
         list: ['boy meets girl', 'one has a secret!', 'fall in love', 'secret revealed!', 'break-up', 'the chase', 'happily ever after'],
         scores: [
           {
@@ -68,16 +50,44 @@ export default new Vuex.Store({
         ],
       },
       {
+        level: 'supa de pui',
+        list: ['apa', 'pui', 'spumam', 'morcov + telina + ceapa', 'taitei / galuste', 'stingem focul', 'patrunjel'],
+        scores: [
+          {
+            name: 'Jamie',
+            value: 10,
+          },
+          {
+            name: 'Gordon',
+            value: 12,
+          },
+        ],
+      },
+      {
         level: 'ciorba de perisoare',
         list: ['apa', 'oase/carne', 'spumam', 'radacinoase', 'rosii', 'ardei gras', 'bors', 'dovlecel', 'perisoare', 'stingem focul', 'leustean'],
         scores: [
           {
-            name: 'Jamilla',
+            name: 'Jamila',
             value: 30,
           },
           {
-            name: 'Cezar',
+            name: 'Chef',
             value: 25,
+          },
+        ],
+      },
+      {
+        level: 'new employee @ MTS',
+        list: ['M', 'A', 'R', 'I', 'A', 'N'],
+        scores: [
+          {
+            name: 'Diana',
+            value: 10,
+          },
+          {
+            name: 'Cos',
+            value: 10,
           },
         ],
       },
@@ -86,7 +96,7 @@ export default new Vuex.Store({
     scoremode: 'start',
     message: '',
     subtitle: '',
-    level: 'letters',
+    level: 'numbers',
   },
   mutations: {
     setScore(state, score) {
@@ -121,8 +131,5 @@ export default new Vuex.Store({
         );
       }
     },
-  },
-  actions: {
-
   },
 });

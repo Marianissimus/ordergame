@@ -16,52 +16,12 @@ export default {
   created() {
     store.commit('setFirstScreen', true);
   },
-  mounted() {
-    this.getApiScores();
-  },
   beforeCreate() {
     this.$store.commit('initialiseStore');
   },
   computed: {
     localNumScores() {
       return store.state.levels.find(el => el.level === 'numbers').scores;
-    },
-  },
-  methods: {
-    getApiScores() {
-      fetch('https://development.m75.ro/test_mts/public/highscore/10')
-        .then(response => response.json())
-        .catch(error => console.error('Error:', error)) // eslint-disable-line 
-        .then((response) => {
-          const ApiRes = response.result;
-          // please CLEAN UP the scores on the server
-          // THEN uncomment the filter below:
-          // .filter(el => el.name !== 'undefined').filter(el => parseInt(el.value) > 1)
-
-          // scores saved locally only dont have IDs
-          const unsavedLocal = this.localNumScores.filter(el => !el.id);
-
-          // compare against worst result in API
-          const APIworstScore = ApiRes[9].value;
-
-          // if highscores in localhost, send them to server
-          const url = 'https://development.m75.ro/test_mts/public/highscore/';
-
-          for (const el of unsavedLocal) {  // eslint-disable-line 
-            if (el.value <= parseInt(APIworstScore, 10)
-              || parseInt(el.value, 10) <= parseInt(APIworstScore, 10)) {
-              this.isLocalHighScore = true;
-              const req = `name=${el.name}&value=${el.value}/`;
-              fetch(url, {
-                method: 'post',
-                body: req,
-                headers: { 'Content-type': 'application/x-www-form-urlencoded' },
-              });
-            }
-          }
-          // finally store in localhost
-          store.commit('setNumbersScore', ApiRes);
-        });
     },
   },
 };

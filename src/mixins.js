@@ -27,9 +27,6 @@ export const mixins = {
     },
     alllevels() {
       return store.state.levels.map(el => el.level);
-    },
-    numberslevel () {
-      return store.state.levels
     }
   },
 };

@@ -6,20 +6,21 @@
         {{ score.value }} -
         <input v-focus
         onblur="this.focus()" autofocus
-        type="text" ref="save" v-model="saveName"
-        @keyup.enter="save(index, score.value)"
+        type="text" ref="saveInput" v-model="saveName"
+        @keyup.enter="save(index)"
         />
       </span>
     </li>
-    <div v-if="level==='numbers' && !firstScreen && !cheatMode"
-      style="margin-top: 1em; padding: 0"
-      @click.stop="stopTheEvent">
-      <button @click="cheat">Cheat! :)</button>
+    <div style="margin-top: 1em; padding: 0" @click.stop="stopTheEvent">
+<!--       <button @click="cheat">Cheat! :)</button> -->
+      <button @click="resetScores">Reset Scores</button>
     </div>
   </ul>
 </template>
 
+
 <script>
+/* eslint-disable consistent-return */
 import { setTimeout } from 'timers';
 import store from '@/store';
 import { mixins } from '@/mixins';
@@ -34,46 +35,41 @@ export default {
     };
   },
   mounted() {
+    window.addEventListener('unload', this.sanitizeScores);
     // subscribe store levels to localstorage
     store.subscribe((mutation, state) => {
       const toStore = {
         levels: state.levels,
       };
-      localStorage.setItem('ordergame', JSON.stringify(toStore));
+      localStorage.setItem('ordergame2', JSON.stringify(toStore));
     });
 
     if (this.scores.find(el => el.name === null)) {
-      // console.log('found');
-    } else {
-      if (store.state.firstScreen === true) {
-        store.commit('setMessage', 'click anywhere to play');
-        return;
-      }
-      store.commit('setMessage', 'not a highscore. try again');
-      setTimeout(store.commit('setScoreMode', 'start'), 1000);
+      return false;
     }
+    if (store.state.firstScreen === true) {
+      store.commit('setMessage', 'click anywhere to play');
+      return false;
+    }
+    store.commit('setMessage', 'not a highscore. try again');
+    setTimeout(store.commit('setScoreMode', 'start'), 1000);
+  },
+  beforeDestroyed() {
+    window.removeEventListener('unload', this.sanitizeScores);
   },
   methods: {
-    save(index, value) {
-      if (!this.saveName.length) {
+    sanitizeScores() {
+      store.commit('sanitizeScore', this.level);
+    },
+    resetScores() {
+      store.commit('resetScore');
+    },
+    save(index) {
+      if (!this.saveName) {
         store.commit('setMessage', 'no empty names, please!');
-        return;
+        return false;
       }
       store.commit('setMessage', 'Score saved. Change level or play again');
-      // only post results from numbers level to API
-      const url = 'https://development.m75.ro/test_mts/public/highscore/';
-      const req = `name=${this.saveName}&value=${value}/`;
-      if (this.level === 'numbers') {
-        fetch(url, {
-          method: 'post',
-          body: req,
-          headers: { 'Content-type': 'application/x-www-form-urlencoded' },
-        })
-          .then(response => response.json())
-          .then(response => console.log('Success:', JSON.stringify(response)))
-          .catch(error => console.error('Error:', error));
-      }
-
       this.scores[index].name = this.saveName;
       this.saved = true;
       store.commit('setScoreMode', 'start');
@@ -83,7 +79,7 @@ export default {
       this.cheatMode = true;
       store.commit('setScore', {
         name: null,
-        value: parseInt(this.scores[0].value) - 1,
+        value: parseInt(this.scores[0].value, 10) - 1,
       });
       this.save();
     },
@@ -106,11 +102,9 @@ export default {
       return this.scoremode === 'start' ? 'game' : `highscores level: ${this.level}`;
     },
     scores() {
-      // if sorting done in backend, remove .sort
       return store.state.levels
         .find(el => el.level === this.level).scores
         .sort((a, b) => a.value - b.value)
-        // .sort((a, b) => b.value - a.value) // temp for dev
         .slice(0, 10); // remove scores not in top 10
     },
   },

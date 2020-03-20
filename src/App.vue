@@ -5,7 +5,6 @@
 </template>
 
 <script>
-import store from '@/store';
 
 export default {
   data() {
@@ -14,15 +13,11 @@ export default {
     };
   },
   created() {
-    store.commit('setFirstScreen', true);
+    this.$store.commit('setScreen', 'levels');
+    // store.commit('setFirstScreen', true);
   },
   beforeCreate() {
     this.$store.commit('initialiseStore');
-  },
-  computed: {
-    localNumScores() {
-      return store.state.levels.find(el => el.level === 'numbers').scores;
-    },
   },
 };
 </script>
@@ -33,7 +28,7 @@ $gameBckColor: #263240;
 $appBckColor: #a0c8c8;
 $notifyColor: #ffff01;
 $white: #FFF;
-$gameBorderRadius: 10px; // TO DO: ask confirmation from designer
+$gameBorderRadius: 10px;
 
 *, body, html{
   //small css reset

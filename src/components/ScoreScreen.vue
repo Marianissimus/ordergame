@@ -5,7 +5,7 @@
       <span v-if="!score.name"  @click.stop="stopTheEvent">
         {{ score.value }} -
         <input v-focus
-        onblur="this.focus()" autofocus
+        autofocus onblur="this.focus()"
         type="text" ref="saveInput" v-model="saveName"
         @keyup.enter="save(index)"
         />
@@ -63,13 +63,14 @@ export default {
     },
     resetScores() {
       store.commit('resetScore');
+      store.commit('setScreen', 'levels');
     },
     save(index) {
       if (!this.saveName) {
         store.commit('setMessage', 'no empty names, please!');
         return false;
       }
-      store.commit('setMessage', 'Score saved. Change level or play again');
+      store.commit('setMessage', 'Score saved. Click to play again or change level');
       this.scores[index].name = this.saveName;
       this.saved = true;
       store.commit('setScoreMode', 'start');
@@ -121,6 +122,13 @@ input[type="text"] {
   color: white;
   border: none;
   padding: 1em;
+}
+@-moz-document url-prefix() {
+  input[type="text"] {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    outline: 1px solid yellow;
+  }
 }
 button {
   border: 1px solid white;

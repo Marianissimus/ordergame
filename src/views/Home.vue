@@ -3,11 +3,12 @@
     <div id="nav">
       <a @click="gotoLevels" v-if="screen === 'scores' && scoremode ==='start'"
       style="cursor: pointer">Levels</a>
-      <a @click="goToScores" v-if="screen === 'levels'" style="cursor: pointer">Back</a>
+      <a @click="goToScores" v-if="screen === 'levels'" style="cursor: pointer">Play</a>
     </div>
     <div class="title">
       <h1 class="logo">order<span class="asterisk">*</span></h1>
-      <h4 class="subtitle">{{ subtitle }}</h4>
+      <h4 class="subtitle" v-if="screen === 'game'">Level: {{ level }} </h4>
+      <h3 class="subtitle">{{ subtitle }}</h3>
     </div>
     <!-- not the best pattern, but i shouldn't use routes just for this-->
     <ScoreScreen v-if="screen === 'scores'"/>
